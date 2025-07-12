@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  ai-research-assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-research-assistant
+    ports:
+      - "7860:7860"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SERPER_API_KEY=${SERPER_API_KEY}
+    env_file:
+      - .env
+    volumes:
+      - app_data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7860/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ai-research-network
+      
+volumes:
+  app_data:
+    driver: local
+
+networks:
+  ai-research-network:
+    driver: bridge

@@ -59,7 +59,7 @@ docker-compose down
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/agentics-ai/multi-agent-research-assistant
 cd multi-agent-search
 ```
 
